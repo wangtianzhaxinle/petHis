@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    public Map<String, Object> getInfo() {
-        List<String> list = new ArrayList<>();
+    public Result getInfo(String token) {
+      /*  List<String> list = new ArrayList<>();
         list.add("admin");
         Map<String, Object> map = new HashMap();
         map.put("roles", list);
@@ -50,7 +49,13 @@ public class UserController {
         map2.put("code", 20000);
         map2.put("data", map);
 
-        return map2;
+        return map2;*/
+        String username = JwtUtils.getUsername(token);
+        User user = userService.selectUserByUsername(username);
+        System.out.println(user);
+        return Result.ok("获取个人信息成功", user, 1);
+
+
     }
 
     @PostMapping("/logout")
@@ -58,4 +63,30 @@ public class UserController {
         System.out.println("退出登录中");
         return Result.ok();
     }
+
+    @GetMapping("/getUserInfoList")
+    public Result getUserInfoList( Integer pageNum,Integer pageSize) {
+        System.out.println("pageNum="+pageNum);
+        System.out.println("pageSize="+pageSize);
+        List<User> userList = userService.selectAllUserInfo();
+        return Result.ok("查询所有用户信息成功", userList, userList.size());
+    }
+    @DeleteMapping("/deleteUserById/{user_id}")
+    public Result deleteUserById(@PathVariable String user_id){
+        System.out.println("deleteUserById");
+        int rows=userService.delectUserById(user_id);
+        if(rows>0){
+            return Result.ok("删除用户成功",null,0);
+        }
+        return Result.error("删除用户失败");
+    }
+    @PutMapping("/updateUserById")
+    public Result updateUserById(User user){
+        int rows=userService.updateUserById(user);
+        if(rows>0){
+            return Result.ok("更新用户成功",null,0);
+        }
+        return Result.error("更新用户失败");
+    }
+
 }

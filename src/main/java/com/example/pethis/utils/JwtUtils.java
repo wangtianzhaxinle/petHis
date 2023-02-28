@@ -3,6 +3,8 @@ package com.example.pethis.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
@@ -70,4 +72,14 @@ public class JwtUtils {
         }
         return claim;
     }
+
+    public static String getUsername(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
 }
