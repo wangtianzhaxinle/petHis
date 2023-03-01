@@ -19,6 +19,7 @@ public class UserController {
     @Resource
     UserService userService;
 
+
     @PostMapping(value = "/login")
     public Result login(@RequestBody User user) throws UnsupportedEncodingException {
         //获取主题对象
@@ -68,16 +69,20 @@ public class UserController {
     public Result getUserInfoList( Integer pageNum,Integer pageSize) {
         System.out.println("pageNum="+pageNum);
         System.out.println("pageSize="+pageSize);
+        /*Page<User>page=new Page<>(pageNum,pageSize);
+        Page<User>userPage=usermapper.selectPage(page,null);*/
         List<User> userList = userService.selectAllUserInfo();
         return Result.ok("查询所有用户信息成功", userList, userList.size());
     }
     @DeleteMapping("/deleteUserById/{user_id}")
     public Result deleteUserById(@PathVariable String user_id){
         System.out.println("deleteUserById");
+
         int rows=userService.delectUserById(user_id);
         if(rows>0){
-            return Result.ok("删除用户成功",null,0);
+            return Result.ok("删除用户成功","delete success",1);
         }
+
         return Result.error("删除用户失败");
     }
     @PutMapping("/updateUserById")
