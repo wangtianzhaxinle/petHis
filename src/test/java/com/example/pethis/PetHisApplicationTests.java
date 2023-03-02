@@ -54,16 +54,17 @@ class PetHisApplicationTests {
     //短信验证码测试
     @Test
     public void testmail() {
-        String host = "https://zwp.market.alicloudapi.com";
-        String path = "/sms/sendv2";
-        String method = "GET";
-        String appcode = "4d2797ea8a7b437ab28cbc951f8e4c24";
+        String host = "https://cxwg.market.alicloudapi.com";
+        String path = "/sendSms";
+        String method = "POST";
+        String appcode = "4d2797ea8a7b437ab28cbc951f8e4c24";//开通服务后 买家中心-查看AppCode
         Map<String, String> headers = new HashMap<String, String>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
-        querys.put("content", "【儿童教务】您正在登录验证,验证码为3256 ,60s内有效,请尽快验证。");
-        querys.put("mobile", "1343994XXXX");
+        querys.put("content", "【创信】你的验证码是：5873，3分钟内有效！");
+        querys.put("mobile", "18529225694");
+        Map<String, String> bodys = new HashMap<String, String>();
 
 
         try {
@@ -76,7 +77,7 @@ class PetHisApplicationTests {
              * 相应的依赖请参照
              * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
              */
-            HttpResponse response = com.aliyun.api.gateway.demo.util.HttpUtils.doGet(host, path, method, headers, querys);
+            HttpResponse response = com.aliyun.api.gateway.demo.util.HttpUtils.doPost(host, path, method, headers, querys, bodys);
             System.out.println(response.toString());
             //获取response的body
             //System.out.println(EntityUtils.toString(response.getEntity()));
