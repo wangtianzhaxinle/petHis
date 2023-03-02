@@ -16,21 +16,25 @@ public class EmployeeController {
     //获取所有员工信息,分页
     @GetMapping("/getEmployeeList")
     public Result getEmployeeList(Integer pageNum, Integer pageSize) {
-
+        System.out.println("getEmployeeList");
         Page<Employee> employeePage = employeeService.getEmployeeList(pageNum, pageSize);
 
         return Result.ok("查找员工信息成功", employeePage.getRecords(), employeePage.getSize());
     }
 
     @GetMapping("/getEmployeeInfoById")
-    public Result getEmployeeInfoById(Integer id) {
-        Employee employee = employeeService.getEmployeeInfoById(id);
-
+    public Result getEmployeeInfoById(Integer user_id) {
+        System.out.println("getEmployeeInfoById");
+        Employee employee = employeeService.getEmployeeInfoById(user_id);
+        if (employee == null) {
+            return Result.error("查找该员工信息失败");
+        }
 
         return Result.ok("查找该员工信息成功", employee, 1);
     }
 
     public Result addEmployee(Employee employee) {
+        System.out.println("addEmployee");
         int rows = employeeService.addEmployee(employee);
         if (rows > 0) {
             return Result.ok("添加员工信息成功", null, 1);
@@ -44,6 +48,7 @@ public class EmployeeController {
 
     @DeleteMapping("deleteEmployee")
     public Result deleteEmployee(Integer id) {
+        System.out.println("deleteEmployee");
         int rows = employeeService.deleteEmployeeById(id);
         if (rows > 0) {
             return Result.ok("删除员工信息成功", null, 1);
@@ -56,6 +61,7 @@ public class EmployeeController {
     }
 
     public Result deleteEmployeesbByIds(int[] ids) {
+        System.out.println("deleteEmployeesbByIds");
         for (int i = 0; i < ids.length; i++) {
             int rows = employeeService.deleteEmployeeById(ids[i]);
             if (rows <= 0) {
@@ -70,6 +76,7 @@ public class EmployeeController {
 
     @PutMapping("/updateEmployeesById")
     public Result updateEmployeesById(Employee employee) {
+        System.out.println("updateEmployeesById");
         int rows = employeeService.updateEmployeeById(employee);
         if (rows > 0) {
             return Result.ok("修改员工信息成功", null, 1);
