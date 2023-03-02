@@ -43,21 +43,21 @@ public class DutyController {
         List<Duty> saturdayAMDuty = dutyService.getSaturdayAMDuty();
         List<Duty> saturdayPMDuty = dutyService.getSaturdayPMDuty();
         Map<String, List<Duty>> map = new HashMap<>();
-
-        map.put(" sundayAMDuty", sundayAMDuty);
-        map.put(" sundayPMDuty", sundayPMDuty);
-        map.put(" mondayAMDuty", mondayAMDuty);
-        map.put(" mondayPMDuty", mondayPMDuty);
-        map.put(" tuesdayAMDuty", tuesdayAMDuty);
-        map.put(" tuesdayPMDuty", tuesdayPMDuty);
-        map.put(" wednesdayAMDuty", wednesdayAMDuty);
-        map.put(" wednesdayPMDuty", wednesdayPMDuty);
-        map.put(" thursdayAMDuty ", thursdayAMDuty);
-        map.put(" thursdayPMDuty ", thursdayPMDuty);
-        map.put(" fridayAMDuty", fridayAMDuty);
-        map.put(" fridayPMDuty", fridayPMDuty);
-        map.put(" saturdayAMDuty", saturdayAMDuty);
-        map.put(" saturdayPMDuty", saturdayPMDuty);
+//这里key里面多了个空格结果前端一直获取不到值比如这样双引号里面多了个空格" sundayAMDuty"
+        map.put("sundayAMDuty", sundayAMDuty);
+        map.put("sundayPMDuty", sundayPMDuty);
+        map.put("mondayAMDuty", mondayAMDuty);
+        map.put("mondayPMDuty", mondayPMDuty);
+        map.put("tuesdayAMDuty", tuesdayAMDuty);
+        map.put("tuesdayPMDuty", tuesdayPMDuty);
+        map.put("wednesdayAMDuty", wednesdayAMDuty);
+        map.put("wednesdayPMDuty", wednesdayPMDuty);
+        map.put("thursdayAMDuty", thursdayAMDuty);
+        map.put("thursdayPMDuty ", thursdayPMDuty);
+        map.put("fridayAMDuty", fridayAMDuty);
+        map.put("fridayPMDuty", fridayPMDuty);
+        map.put("saturdayAMDuty", saturdayAMDuty);
+        map.put("saturdayPMDuty", saturdayPMDuty);
         return Result.ok("获取值班信息成功",map,1);
     }
 

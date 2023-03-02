@@ -1,5 +1,6 @@
 package com.example.pethis.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.User;
 import com.example.pethis.service.UserService;
 import com.example.pethis.utils.JwtUtils;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -71,11 +71,12 @@ public class UserController {
         System.out.println("pageSize="+pageSize);
         /*Page<User>page=new Page<>(pageNum,pageSize);
         Page<User>userPage=usermapper.selectPage(page,null);*/
-        List<User> userList = userService.selectAllUserInfo();
-        return Result.ok("查询所有用户信息成功", userList, userList.size());
+        Page<User> userList = userService.selectAllUserInfo(pageNum,pageSize);
+        System.out.println(userList);
+        return Result.ok("查询所有用户信息成功", userList, userList.getSize());
     }
     @DeleteMapping("/deleteUserById/{user_id}")
-    public Result deleteUserById(@PathVariable String user_id){
+    public Result deleteUserById(@PathVariable Integer user_id){
         System.out.println("deleteUserById");
 
         int rows=userService.delectUserById(user_id);
@@ -85,7 +86,19 @@ public class UserController {
 
         return Result.error("删除用户失败");
     }
-    @PutMapping("/updateUserById")
+    @PostMapping("/deleteUserByIds")
+    public Result deleteUserById(@RequestBody int[]ids){
+        System.out.println("deleteUserByIds");
+       // System.out.println("ids="+ Arrays.toString(ids));
+        for(int i=0;i<ids.length;i++){
+            int rows=userService.delectUserById(ids[i]);
+            if(rows<=0){
+                return Result.error("批量删除用户失败");
+            }
+        }
+        return Result.ok("批量删除用户成功","delete success",1);
+    }
+    @PutMapping("/updateUserByIds")
     public Result updateUserById(User user){
         int rows=userService.updateUserById(user);
         if(rows>0){
