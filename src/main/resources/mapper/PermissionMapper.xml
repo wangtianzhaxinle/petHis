@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Permission">
+            <id property="permissionid" column="permissionId" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="parentid" column="parentId" jdbcType="INTEGER"/>
+            <result property="permissioncode" column="permissionCode" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        permissionId,name,url,
+        parentId,permissionCode,type
+    </sql>
+</mapper>

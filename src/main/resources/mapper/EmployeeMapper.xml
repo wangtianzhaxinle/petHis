@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.EmployeeMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.EmployeeVO">
+        <id property="employeeid" column="employeeId" jdbcType="INTEGER"/>
+        <result property="hiredate" column="hiredate" jdbcType="DATE"/>
+        <result property="salary" column="salary" jdbcType="DECIMAL"/>
+        <result property="bankcard" column="bankcard" jdbcType="VARCHAR"/>
+        <result property="maxappoint" column="maxAppoint" jdbcType="INTEGER"/>
+        <result property="card" column="card" jdbcType="VARCHAR"/>
+        <result property="nativeplace" column="nativePlace" jdbcType="VARCHAR"/>
+        <result property="educationbackground" column="educationBackground" jdbcType="VARCHAR"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <association property="user">
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="sex" column="sex" jdbcType="INTEGER"/>
+            <result property="phonenumber" column="phoneNumber" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <resultMap id="EmployeeCount" type="java.lang.Integer">
+        <result column="total"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        employeeId
+        ,hiredate,salary,
+        bankcard,maxAppoint,card,
+        nativePlace,educationBackground
+    </sql>
+
+    <select id="getEmployeeListByRoleId" resultMap="BaseResultMap,EmployeeCount">
+
+        select SQL_CALC_FOUND_ROWS *
+        from employee left
+                          join user
+                               on user.userId=employee.employeeId
+        where employee.employeeId
+            in
+            (select employee_role.employeeId from employee_role where employee_role.roleId = #{roleId})
+            LIMIT #{currentPage}
+            , #{pageSize};
+        SELECT FOUND_ROWS() AS total;
+    </select>
+</mapper>

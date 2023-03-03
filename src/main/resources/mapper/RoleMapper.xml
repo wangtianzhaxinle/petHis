@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.RoleVO">
+        <id property="roleid" column="roleId" jdbcType="INTEGER"/>
+        <result property="name" column="rolename" jdbcType="VARCHAR"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <collection property="permissionList" javaType="java.util.List" ofType="com.example.pethis.entity.Permission">
+            <id property="permissionid" column="permissionid"/>
+            <result property="url" column="url"/>
+            <result property="permissioncode" column="permissioncode"/>
+            <result property="parentid" column="parentid"/>
+            <result property="type" column="type"/>
+            <result property="name" column="name"/>
+        </collection>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        roleId
+        ,name
+    </sql>
+    <select id="getRoleInfoList" resultType="java.lang.Object">
+        select role.roleId, role.name as rolename, permission.*, role_permission.id
+        from role
+                 left join role_permission
+                           on role.roleId = role_permission.roleId
+                 left join permission
+                           on role_permission.permissionId = permission.permissionId
+            limit #{currentPage}
+           , #{pageSize}
+    </select>
+</mapper>

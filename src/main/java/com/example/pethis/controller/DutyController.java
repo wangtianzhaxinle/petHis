@@ -1,6 +1,6 @@
 package com.example.pethis.controller;
 
-import com.example.pethis.entity.Duty;
+import com.example.pethis.entity.DutyVO;
 import com.example.pethis.service.DutyService;
 import com.example.pethis.utils.Result;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/duty")
@@ -20,8 +18,8 @@ public class DutyController {
     DutyService dutyService;
 
     @GetMapping("/getDutyList")
-    public Result getDutyList() {
-
+    public Result getDutyList(int pageNum,int pageSize) {
+/*
         List<Duty> sundayAMDuty = dutyService.getSundayAMDuty();
         List<Duty> sundayPMDuty = dutyService.getSundayPMDuty();
 
@@ -58,7 +56,15 @@ public class DutyController {
         map.put("fridayPMDuty", fridayPMDuty);
         map.put("saturdayAMDuty", saturdayAMDuty);
         map.put("saturdayPMDuty", saturdayPMDuty);
-        return Result.ok("获取值班信息成功",map,1);
+
+ */
+        System.out.println("getDutyList");
+
+        List<Object> objectList=dutyService.getDutyPage(pageNum,pageSize);
+        List<DutyVO> list =(List<DutyVO>) objectList.get(0);
+        int total =(Integer)((List<Object>)objectList.get(1)).get(0);
+
+        return Result.ok("获取值班信息成功",list, total);
     }
 
 }

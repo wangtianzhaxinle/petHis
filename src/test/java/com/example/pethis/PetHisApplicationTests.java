@@ -1,10 +1,12 @@
 package com.example.pethis;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.pethis.entity.Duty;
 import com.example.pethis.entity.User;
+import com.example.pethis.mapper.EmployeeMapper;
+import com.example.pethis.mapper.RoleMapper;
 import com.example.pethis.mapper.UserMapper;
 import com.example.pethis.service.DutyService;
+import com.example.pethis.service.PetService;
 import com.example.pethis.utils.JwtUtils;
 import org.apache.http.HttpResponse;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,12 @@ class PetHisApplicationTests {
     private UserMapper userMapper;
     @Resource
     DutyService dutyService;
+    @Resource
+    PetService petService;
+    @Resource
+    RoleMapper roleMapper;
+@Resource
+    EmployeeMapper employeeMapper;
 
     @Test
     void contextLoads() {
@@ -90,6 +98,7 @@ class PetHisApplicationTests {
 
     @Test
     void testDuty() {
+        /*
         List<Duty> sundayAMDuty = dutyService.getSundayAMDuty();
         List<Duty> sundayPMDuty = dutyService.getSundayPMDuty();
 
@@ -131,5 +140,31 @@ class PetHisApplicationTests {
 
         System.out.println("saturdayAMDuty " + saturdayAMDuty);
         System.out.println("saturdayPMDuty " + saturdayPMDuty);
+
+         */
+    }
+
+    @Test
+    public void testJoin() {
+       dutyService.getDutyPage(1,3);
+
+    }
+    @Test
+    public void testpetlist() {
+        petService.getPetInfoList(1,10);
+
+    }
+    @Test
+    public void  persoanPetList(){
+        petService.getPetListByUserId(1,2,1);
+    }
+
+    @Test
+    public void rolePerList(){
+        roleMapper.getRoleInfoList(1,2);
+    }
+    @Test
+    public void roleEmpListByRolePAge(){
+        employeeMapper.getEmployeeListByRoleId(1,5,1);
     }
 }

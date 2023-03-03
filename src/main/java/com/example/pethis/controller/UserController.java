@@ -73,13 +73,13 @@ public class UserController {
         Page<User>userPage=usermapper.selectPage(page,null);*/
         Page<User> userList = userService.selectAllUserInfo(pageNum,pageSize);
         System.out.println(userList);
-        return Result.ok("查询所有用户信息成功", userList, userList.getSize());
+        return Result.ok("查询所有用户信息成功", userList, userList.getTotal());
     }
-    @DeleteMapping("/deleteUserById/{user_id}")
-    public Result deleteUserById(@PathVariable Integer user_id){
+    @DeleteMapping("/deleteUserById/{userId}")
+    public Result deleteUserById(@PathVariable Integer userId){
         System.out.println("deleteUserById");
 
-        int rows=userService.delectUserById(user_id);
+        int rows=userService.delectUserById(userId);
         if(rows>0){
             return Result.ok("删除用户成功","delete success",1);
         }

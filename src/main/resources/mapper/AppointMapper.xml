@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.AppointMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Appoint">
+            <id property="appointid" column="appointId" jdbcType="INTEGER"/>
+            <result property="itemid" column="itemId" jdbcType="INTEGER"/>
+            <result property="userid" column="userId" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="appointtime" column="appointTime" jdbcType="TIMESTAMP"/>
+            <result property="employeeid" column="employeeId" jdbcType="INTEGER"/>
+            <result property="count" column="count" jdbcType="INTEGER"/>
+            <result property="totalprice" column="totalPrice" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        appointId,itemId,userId,
+        status,appointTime,employeeId,
+        count,totalPrice
+    </sql>
+</mapper>

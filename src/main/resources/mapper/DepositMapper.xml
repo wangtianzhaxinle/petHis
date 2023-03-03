@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.DepositMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Deposit">
+            <id property="depositid" column="depositId" jdbcType="INTEGER"/>
+            <result property="petid" column="petId" jdbcType="INTEGER"/>
+            <result property="startdate" column="startDate" jdbcType="DATE"/>
+            <result property="enddate" column="endDate" jdbcType="DATE"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        depositId,petId,startDate,
+        endDate,status
+    </sql>
+</mapper>

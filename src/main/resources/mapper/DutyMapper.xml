@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.DutyMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.DutyVO">
+        <id property="dutyid" column="dutyId" jdbcType="INTEGER"/>
+        <result property="employeeid" column="employeeId" jdbcType="INTEGER"/>
+        <result property="mondayam" column="MondayAM" jdbcType="INTEGER"/>
+        <result property="mondaypm" column="MondayPM" jdbcType="INTEGER"/>
+        <result property="tuesdayam" column="TuesdayAM" jdbcType="INTEGER"/>
+        <result property="tuesdaypm" column="TuesdayPM" jdbcType="INTEGER"/>
+        <result property="wednesdayam" column="WednesdayAM" jdbcType="INTEGER"/>
+        <result property="wednesdaypm" column="WednesdayPM" jdbcType="INTEGER"/>
+        <result property="thursdayam" column="ThursdayAM" jdbcType="INTEGER"/>
+        <result property="thursdaypm" column="ThursdayPM" jdbcType="INTEGER"/>
+        <result property="fridayam" column="FridayAM" jdbcType="INTEGER"/>
+        <result property="fridaypm" column="FridayPM" jdbcType="INTEGER"/>
+        <result property="saturdayam" column="SaturdayAM" jdbcType="INTEGER"/>
+        <result property="saturdaypm" column="SaturdayPM" jdbcType="INTEGER"/>
+        <result property="sundayam" column="SundayAM" jdbcType="INTEGER"/>
+        <result property="sundaypm" column="SundayPM" jdbcType="INTEGER"/>
+
+        <association property="user">
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+        </association>
+
+    </resultMap>
+    <resultMap id="dutyCount" type="java.lang.Integer">
+        <result column="total"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dutyId
+        ,employeeId,MondayAM,
+        MondayPM,TuesdayAM,TuesdayPM,
+        WednesdayAM,WednesdayPM,ThursdayAM,
+        ThursdayPM,FridayAM,FridayPM,
+        SaturdayAM,SaturdayPM,SundayAM,
+        SundayPM
+    </sql>
+<!--    这里我真是服了,resultMap里面有多个参数会报错,网上的根本没提到要在数据库连接配上allowMultiQueries=true才能正常运行,现在虽然也报错,但是能正常运行-->
+    <select id="selectAllDuty"  resultMap="BaseResultMap,dutyCount">
+        select SQL_CALC_FOUND_ROWS user.name,duty.*
+        from user, duty
+        where duty.employeeId= user.userId limit #{currentPage}
+            , #{pageSize};
+
+        SELECT FOUND_ROWS() AS total;
+    </select>
+
+
+</mapper>

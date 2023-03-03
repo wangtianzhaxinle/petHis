@@ -38,10 +38,11 @@
             <version>3.5.1</version>
         </dependency>
         <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+
 
         <!--整合Shiro安全框架-->
         <dependency>
@@ -93,7 +94,6 @@
             <version>4.5</version>
             <scope>test</scope>
         </dependency>
-
 
 
     </dependencies>

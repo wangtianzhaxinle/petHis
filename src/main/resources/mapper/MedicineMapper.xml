@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.MedicineMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Medicine">
+            <id property="medicineid" column="medicineId" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="company" column="company" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="amount" column="amount" jdbcType="INTEGER"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="exp" column="Exp" jdbcType="VARCHAR"/>
+            <result property="authenticationcode" column="authenticationCode" jdbcType="VARCHAR"/>
+            <result property="image" column="image" jdbcType="VARCHAR"/>
+            <result property="isprescription" column="isPrescription" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        medicineId,name,company,
+        price,amount,description,
+        Exp,authenticationCode,image,
+        isPrescription
+    </sql>
+
+</mapper>

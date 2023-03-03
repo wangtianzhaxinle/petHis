@@ -2,10 +2,13 @@ package com.example.pethis.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.Employee;
+import com.example.pethis.entity.EmployeeVO;
 import com.example.pethis.service.EmployeeService;
 import com.example.pethis.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,13 +22,13 @@ public class EmployeeController {
         System.out.println("getEmployeeList");
         Page<Employee> employeePage = employeeService.getEmployeeList(pageNum, pageSize);
 
-        return Result.ok("查找员工信息成功", employeePage.getRecords(), employeePage.getSize());
+        return Result.ok("查找员工信息成功", employeePage.getRecords(), employeePage.getTotal());
     }
 
     @GetMapping("/getEmployeeInfoById")
-    public Result getEmployeeInfoById(Integer user_id) {
+    public Result getEmployeeInfoById(Integer userId) {
         System.out.println("getEmployeeInfoById");
-        Employee employee = employeeService.getEmployeeInfoById(user_id);
+        Employee employee = employeeService.getEmployeeInfoById(userId);
         if (employee == null) {
             return Result.error("查找该员工信息失败");
         }
@@ -44,6 +47,15 @@ public class EmployeeController {
         }
 
 
+    }
+    @GetMapping("/getEmployeeListByRoleId")
+    public  Result getEmployeeListByRoleId(int pageNum,int pageSize,int roleId){
+        System.out.println("getEmployeeListByRoleId");
+        List<Object> objectList=employeeService.getEmployeeListByRoleId(pageNum,pageSize,roleId);
+        List<EmployeeVO> list =(List<EmployeeVO>) objectList.get(0);
+        int total =(Integer)((List<Object>)objectList.get(1)).get(0);
+
+        return Result.ok("获取项目员工信息成功",list, total);
     }
 
     @DeleteMapping("deleteEmployee")

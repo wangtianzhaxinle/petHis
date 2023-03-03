@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.User">
+            <id property="userid" column="userId" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="sex" column="sex" jdbcType="INTEGER"/>
+            <result property="phonenumber" column="phoneNumber" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createtime" jdbcType="DATE"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        userId,name,age,
+        sex,phoneNumber,address,
+        username,password,createtime,
+        email,avatar
+    </sql>
+</mapper>
