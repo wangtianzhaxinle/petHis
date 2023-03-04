@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.Medicine;
 import com.example.pethis.service.MedicineService;
 import com.example.pethis.utils.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -15,6 +13,7 @@ import javax.annotation.Resource;
 public class MedicineController {
     @Resource
     MedicineService medicineService;
+
     @GetMapping("/getMedicineList")
     public Result getMedicineList(Integer pageNum, Integer pageSize) {
         System.out.println("getMedicineList");
@@ -33,5 +32,12 @@ public class MedicineController {
 
         return Result.ok("查找该药物信息成功", medicine, 1);
     }
-    
+
+    @PostMapping("/addMedicineInfo")
+    public Result addMedicineInfo(@RequestBody Medicine medicine) {
+        System.out.println("addMedicineInfo");
+        System.out.println(medicine);
+        return null;
+    }
+
 }

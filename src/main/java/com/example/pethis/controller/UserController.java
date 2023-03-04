@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Resource
     UserService userService;
@@ -105,6 +106,12 @@ public class UserController {
             return Result.ok("更新用户成功",null,0);
         }
         return Result.error("更新用户失败");
+    }
+    @PostMapping("/registerUser")
+    public Result RegisterUser(@RequestBody User user){
+        System.out.println("RegisterUser");
+        System.out.println(user);
+        return null;
     }
 
 }

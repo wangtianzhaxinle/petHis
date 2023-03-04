@@ -38,8 +38,11 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
 
         /**
+         * 此方法返回true会走控制器
          * preHandle 执行完之后会执行这个方法
          * 再这个方法中 我们根据条件判断去去执行isLoginAttempt和executeLogin方法
+         * 里面判断有没有token,有的话执行realm的认证方法
+         * 没有的话
          * */
         @Override
         protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
