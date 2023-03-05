@@ -1,13 +1,13 @@
 package com.example.pethis.controller;
 
 import com.example.pethis.utils.Result;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,6 +24,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/upload")
 public class ImageController {
+    //http://localhost:8080/petHis/uploadImage/1.jpg
+    @Value("${image.upload}")
+    private String imageUrl;
+    //file:///F:/locationImage/1.jpg
+    @Value("${image.location}")
+    private String locationImagePath;
 
     @RequestMapping("/image")
     public Result addArticleImg(MultipartFile file) {
@@ -35,23 +41,25 @@ public class ImageController {
             System.out.println("接收到图片");
             Map<String, Object> map = uploadFile(file);
             String fileUrl = (String) map.get("fileUrl");
+            System.out.println("返回url为"+fileUrl);
             return Result.ok("上传图片成功", fileUrl, 1);
         }
     }
 
     private Map<String, Object> uploadFile(MultipartFile file) {
+
         // 这个map用于返回imageUrl，imageId之类的数据
         Map<String, Object> map = new HashMap<>();
         try {
             // 1）设置文件的目录
             //按照月份进行分类：
-            Calendar calendar = Calendar.getInstance();
+           /* Calendar calendar = Calendar.getInstance();
             calendar.get(Calendar.YEAR);
             String yearMonth = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月";
             String filePath = "E:\\图片保存\\upload\\" + yearMonth; //项目路径+年月份
-
+*/
             // 创建文件目录
-            File realPath = new File(filePath);  //上传文件保存地址：realPath = "E:\\图片保存\\upload\\2022年5月"
+            File realPath = new File(locationImagePath);  //上传文件保存地址：realPath = "F:/uploadfile/1.jpg"
             if (!realPath.exists()) {
                 boolean mkdirs = realPath.mkdirs();//创建文件目录，可以创建多层目录
             }
@@ -66,9 +74,9 @@ public class ImageController {
             file.transferTo(new File(realPath + "/" + fileName));
 
             //4）返回图片的名字，url，如果只是保存文件，下面的语句可以不写
-            String fileUrl = "/upload/" + yearMonth + "/" + fileName;
+            String fileUrl = imageUrl  + fileName;
             //前端的FILE_API为http://localhost:9222/file
-            map.put("fileName", fileName);
+          //  map.put("fileName", fileName);
             map.put("fileUrl", fileUrl);  //传到前端的url，例如： /upload/2022年5月/xxx.jpg
 
         } catch (IOException e) {

@@ -1,9 +1,8 @@
 package com.example.pethis.service;
 
-import com.example.pethis.entity.Item;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import com.example.pethis.entity.Item;
 
 /**
 * @author 梁炜轩
@@ -12,5 +11,13 @@ import java.util.List;
 */
 public interface ItemService extends IService<Item> {
 
-    List<Item> getItemInfoList();
+
+
+    Page<Item> getItemInfoList(int pageNum,int pageSize);
+
+    int addItem(Item item);
+
+    int deleteItembyId(int itemId);
+
+    int  updateItemById(Item item);
 }

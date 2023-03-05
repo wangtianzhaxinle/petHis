@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.Appoint;
 import com.example.pethis.service.AppointService;
 import com.example.pethis.utils.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -32,5 +30,16 @@ public class AppointController {
             return Result.error("查找该预约信息失败");
         }
         return Result.ok("查找该预约信息成功", appoint, 1);
+    }
+
+    @PostMapping("/addAppoint")
+    public Result addAppoint(@RequestBody Appoint appoint) {
+        System.out.println("addAppoint");
+        System.out.println(appoint);
+        int rows= appointService.addAppoint(appoint);
+        if (rows <=0) {
+            return Result.error("添加该预约信息失败");
+        }
+        return Result.ok("添加该预约信息成功", appoint, 1);
     }
 }

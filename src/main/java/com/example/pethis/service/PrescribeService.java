@@ -1,5 +1,6 @@
 package com.example.pethis.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.Prescribe;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PrescribeService extends IService<Prescribe> {
 
+    int addPrescribe(Prescribe prescribe);
+
+    int deletePrescribeById(int id);
+
+    Page<Prescribe> getPrescribeList(int pageNum, int pageSize);
 }

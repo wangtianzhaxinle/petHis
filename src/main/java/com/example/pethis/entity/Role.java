@@ -20,6 +20,8 @@ public class Role implements Serializable {
      */
     @TableId(value = "roleId", type = IdType.AUTO)
     private Integer roleid;
+    @TableField(value = "itemId")
+    private Integer itemId;
 
     /**
      * 

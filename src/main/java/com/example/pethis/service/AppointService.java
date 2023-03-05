@@ -14,4 +14,6 @@ public interface AppointService extends IService<Appoint> {
     Page<Appoint> getAppointList(Integer pageNum, Integer pageSize);
 
     Appoint getAppointInfoById(Integer appointId);
+
+    int addAppoint(Appoint appoint);
 }

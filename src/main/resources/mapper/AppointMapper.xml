@@ -10,6 +10,7 @@
             <result property="userid" column="userId" jdbcType="INTEGER"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="appointtime" column="appointTime" jdbcType="TIMESTAMP"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
             <result property="employeeid" column="employeeId" jdbcType="INTEGER"/>
             <result property="count" column="count" jdbcType="INTEGER"/>
             <result property="totalprice" column="totalPrice" jdbcType="DECIMAL"/>

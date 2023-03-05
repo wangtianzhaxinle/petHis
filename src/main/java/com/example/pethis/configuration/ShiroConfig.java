@@ -75,8 +75,8 @@ public class ShiroConfig {
         //就解决了,我把猜测用snipa截图后写在上面了
 
       filterRuleMap.put("/user/login", "anon");
-
-        //filterRuleMap.put("/file/upload/**", "anon");
+        filterRuleMap.put("/doRegister", "anon");
+        filterRuleMap.put("/file/upload/**", "anon");
        // filterRuleMap.put("/test/111", "anon");
         filterRuleMap.put("/**", "jwt");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);

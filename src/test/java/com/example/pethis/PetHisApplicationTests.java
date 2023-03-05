@@ -1,5 +1,10 @@
 package com.example.pethis;
 
+import com.aliyun.auth.credentials.Credential;
+import com.aliyun.auth.credentials.provider.StaticCredentialProvider;
+import com.aliyun.sdk.service.dysmsapi20170525.AsyncClient;
+import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.User;
 import com.example.pethis.mapper.EmployeeMapper;
@@ -8,14 +13,18 @@ import com.example.pethis.mapper.UserMapper;
 import com.example.pethis.service.DutyService;
 import com.example.pethis.service.PetService;
 import com.example.pethis.utils.JwtUtils;
-import org.apache.http.HttpResponse;
+import com.example.pethis.utils.SendMail;
+import com.google.gson.Gson;
+import darabonba.core.client.ClientOverrideConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @SpringBootTest
 class PetHisApplicationTests {
@@ -27,7 +36,7 @@ class PetHisApplicationTests {
     PetService petService;
     @Resource
     RoleMapper roleMapper;
-@Resource
+    @Resource
     EmployeeMapper employeeMapper;
 
     @Test
@@ -59,42 +68,79 @@ class PetHisApplicationTests {
 
     }
 
+
     //短信验证码测试
     @Test
-    public void testmail() {
-        String host = "https://cxwg.market.alicloudapi.com";
-        String path = "/sendSms";
-        String method = "POST";
-        String appcode = "4d2797ea8a7b437ab28cbc951f8e4c24";//开通服务后 买家中心-查看AppCode
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
-        Map<String, String> querys = new HashMap<String, String>();
-        querys.put("content", "【创信】你的验证码是：5873，3分钟内有效！");
-        querys.put("mobile", "18529225694");
-        Map<String, String> bodys = new HashMap<String, String>();
+    public void testmail() throws Exception {
+        // Configure Credentials authentication information, including ak, secret, token
+        StaticCredentialProvider provider = StaticCredentialProvider.create(Credential.builder()
+                .accessKeyId(
+                        "LTAI5tRUbk3MW1TYZNQmuhax")
+                .accessKeySecret(
+                        "QsvmydzFdu4D5EUYK9MV4Ty2G17WVT")
+                //.securityToken("<your-token>") // use STS token
+                .build());
 
+        // Configure the Client
+        AsyncClient client = AsyncClient.builder()
+                .region("undefined") // Region ID
+                //.httpClient(httpClient) // Use the configured HttpClient, otherwise use the default HttpClient (Apache HttpClient)
+                .credentialsProvider(provider)
+                //.serviceConfiguration(Configuration.create()) // Service-level configuration
+                // Client-level configuration rewrite, can set Endpoint, Http request parameters, etc.
+                .overrideConfiguration(
+                        ClientOverrideConfiguration.create()
+                                .setEndpointOverride("dysmsapi.aliyuncs.com")
+                        //.setConnectTimeout(Duration.ofSeconds(30))
+                )
+                .build();
 
-        try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
-            HttpResponse response = com.aliyun.api.gateway.demo.util.HttpUtils.doPost(host, path, method, headers, querys, bodys);
-            System.out.println(response.toString());
-            //获取response的body
-            //System.out.println(EntityUtils.toString(response.getEntity()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Parameter settings for API request
+        SendSmsRequest sendSmsRequest = SendSmsRequest.builder()
+                .phoneNumbers("18529225694")
+                .signName("梁炜轩的个人博客")
+                .templateCode("SMS_272635731")
+                .templateParam("{\"code\":\"2567\"}")
+                // Request-level configuration rewrite, can set Http request parameters, etc.
+                // .requestConfiguration(RequestConfiguration.create().setHttpHeaders(new HttpHeaders()))
+                .build();
 
+        // Asynchronously get the return value of the API request
+        CompletableFuture<SendSmsResponse> response = client.sendSms(sendSmsRequest);
+        // Synchronously get the return value of the API request
+        SendSmsResponse resp = response.get();
+        System.out.println(new Gson().toJson(resp));
+        // Asynchronous processing of return values
+        /*response.thenAccept(resp -> {
+            System.out.println(new Gson().toJson(resp));
+        }).exceptionally(throwable -> { // Handling exceptions
+            System.out.println(throwable.getMessage());
+            return null;
+        });*/
 
+        // Finally, close the client
+        client.close();
     }
+
+    @Test
+    void testmail2() throws ExecutionException, InterruptedException, NoSuchAlgorithmException {
+        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+        String str = "";
+        for (int i = 0; i < 4; i++) {
+            int num = secureRandom.nextInt(9);
+            str += num;
+
+        }
+        System.out.println(str);
+       String code="{\"code\":"+str+"}";
+        System.out.println(code);
+        String result = SendMail.sendCode("LTAI5tRUbk3MW1TYZNQmuhax",
+                "QsvmydzFdu4D5EUYK9MV4Ty2G17WVT",
+                "SMS_272635731", code,
+                "18529225694", "梁炜轩的个人博客");
+        System.out.println(result);
+    }
+
 
     @Test
     void testDuty() {
@@ -146,25 +192,28 @@ class PetHisApplicationTests {
 
     @Test
     public void testJoin() {
-       dutyService.getDutyPage(1,3);
+        dutyService.getDutyPage(1, 3);
 
     }
+
     @Test
     public void testpetlist() {
-        petService.getPetInfoList(1,10);
+        petService.getPetInfoList(1, 10);
 
-    }
-    @Test
-    public void  persoanPetList(){
-        petService.getPetListByUserId(1,2,1);
     }
 
     @Test
-    public void rolePerList(){
-        roleMapper.getRoleInfoList(1,2);
+    public void persoanPetList() {
+        petService.getPetListByUserId(1, 2, 1);
     }
+
     @Test
-    public void roleEmpListByRolePAge(){
-        employeeMapper.getEmployeeListByRoleId(1,5,1);
+    public void rolePerList() {
+        roleMapper.getRoleInfoList(1, 2);
+    }
+
+    @Test
+    public void roleEmpListByRolePAge() {
+        employeeMapper.getEmployeeListByRoleId(1, 5, 1);
     }
 }

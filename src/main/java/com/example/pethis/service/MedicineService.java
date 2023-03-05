@@ -14,4 +14,10 @@ public interface MedicineService extends IService<Medicine> {
     Page<Medicine> getMedicineList(Integer pageNum, Integer pageSize);
 
     Medicine getMedicineInfoById(Integer userId);
+
+    int addMedicineInfo(Medicine medicine);
+
+    int deleteMedicineById(Integer medicineId);
+
+    int updateMedicineById(Medicine medicine);
 }
