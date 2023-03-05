@@ -134,10 +134,10 @@ class PetHisApplicationTests {
         System.out.println(str);
        String code="{\"code\":"+str+"}";
         System.out.println(code);
-        String result = SendMail.sendCode("LTAI5tRUbk3MW1TYZNQmuhax",
-                "QsvmydzFdu4D5EUYK9MV4Ty2G17WVT",
-                "SMS_272635731", code,
-                "18529225694", "梁炜轩的个人博客");
+        String result = SendMail.sendCode("",
+                "",
+                "", code,
+                "", "梁炜轩的个人博客");
         System.out.println(result);
     }
 
