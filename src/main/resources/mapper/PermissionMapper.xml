@@ -5,16 +5,37 @@
 <mapper namespace="com.example.pethis.mapper.PermissionMapper">
 
     <resultMap id="BaseResultMap" type="com.example.pethis.entity.Permission">
-            <id property="permissionid" column="permissionId" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="url" column="url" jdbcType="VARCHAR"/>
-            <result property="parentid" column="parentId" jdbcType="INTEGER"/>
-            <result property="permissioncode" column="permissionCode" jdbcType="VARCHAR"/>
-            <result property="type" column="type" jdbcType="VARCHAR"/>
+        <id property="permissionid" column="permissionId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="parentid" column="parentId" jdbcType="INTEGER"/>
+        <result property="permissioncode" column="permissionCode" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="PermissionTree" type="com.example.pethis.entity.PermissionTree">
+        <id property="permissionid" column="permissionId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="parentid" column="parentId" jdbcType="INTEGER"/>
+        <result property="permissioncode" column="permissionCode" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <collection property="childrenPermission"
+                    column="{parentId=permissionid}"
+        select="com.example.pethis.mapper.PermissionMapper.getchildrenPermission"
+        >
 
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List">
-        permissionId,name,url,
+        permissionId
+        ,name,url,
         parentId,permissionCode,type
     </sql>
+    <select id="getPermissionTree" resultMap="com.example.pethis.mapper.PermissionMapper.PermissionTree">
+        select  *from permission where parentid is null
+    </select>
+
+    <select id="getchildrenPermission" resultMap="com.example.pethis.mapper.PermissionMapper.BaseResultMap">
+        select * from permission where parentId=#{parentId}
+    </select>
 </mapper>

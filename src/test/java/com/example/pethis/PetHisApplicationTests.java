@@ -6,12 +6,13 @@ import com.aliyun.sdk.service.dysmsapi20170525.AsyncClient;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.pethis.entity.EmplpoyeeDutyVO;
+import com.example.pethis.entity.PermissionTree;
 import com.example.pethis.entity.User;
-import com.example.pethis.mapper.EmployeeMapper;
-import com.example.pethis.mapper.RoleMapper;
-import com.example.pethis.mapper.UserMapper;
+import com.example.pethis.mapper.*;
 import com.example.pethis.service.DutyService;
 import com.example.pethis.service.PetService;
+import com.example.pethis.utils.DateUtil;
 import com.example.pethis.utils.JwtUtils;
 import com.example.pethis.utils.SendMail;
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -38,6 +40,10 @@ class PetHisApplicationTests {
     RoleMapper roleMapper;
     @Resource
     EmployeeMapper employeeMapper;
+    @Resource
+    ItemMapper itemMapper;
+    @Resource
+    PermissionMapper permissionMapper;
 
     @Test
     void contextLoads() {
@@ -132,7 +138,7 @@ class PetHisApplicationTests {
 
         }
         System.out.println(str);
-       String code="{\"code\":"+str+"}";
+        String code = "{\"code\":" + str + "}";
         System.out.println(code);
         String result = SendMail.sendCode("",
                 "",
@@ -215,5 +221,33 @@ class PetHisApplicationTests {
     @Test
     public void roleEmpListByRolePAge() {
         employeeMapper.getEmployeeListByRoleId(1, 5, 1);
+    }
+
+    @Test
+    void testitemlist() {
+        List<Object> list = itemMapper.getitemList(1, 5);
+        System.out.println(list);
+    }
+
+    @Test
+    void testtoday() {
+
+        System.out.println(DateUtil.getWitchWeekdayOfTomorrow());
+    }
+
+    @Test
+    void testdutyEmployee() {
+
+        List<Object> obj = employeeMapper.getEmployeeByDutyAndRole(1, 10, 4, "Tuesday");
+        List<EmplpoyeeDutyVO> list = (List<EmplpoyeeDutyVO>) obj.get(0);
+        int total = (Integer) ((List<Object>) obj.get(1)).get(0);
+        System.out.println(111);
+        System.out.println(list);
+    }
+
+    @Test
+    void testPermissiontree() {
+        List<PermissionTree> list =permissionMapper.getPermissionTree();
+        System.out.println(Arrays.toString(list.toArray()));
     }
 }

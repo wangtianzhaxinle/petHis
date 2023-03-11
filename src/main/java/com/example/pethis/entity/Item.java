@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import lombok.Data;
 
 /**
  * 
@@ -20,7 +21,8 @@ public class Item implements Serializable {
      */
     @TableId(value = "itemId", type = IdType.AUTO)
     private Integer itemid;
-
+    @TableField(value = "roleId")
+    private Integer roleid;
     /**
      * 
      */

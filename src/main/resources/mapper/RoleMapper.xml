@@ -6,9 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.example.pethis.entity.RoleVO">
         <id property="roleid" column="roleId" jdbcType="INTEGER"/>
-        <result property="itemId" column="itemId" jdbcType="INTEGER"/>
+
         <result property="name" column="rolename" jdbcType="VARCHAR"/>
-        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
         <collection property="permissionList" javaType="java.util.List" ofType="com.example.pethis.entity.Permission">
             <id property="permissionid" column="permissionid"/>
             <result property="url" column="url"/>

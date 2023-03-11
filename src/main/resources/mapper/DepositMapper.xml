@@ -10,10 +10,13 @@
             <result property="startdate" column="startDate" jdbcType="DATE"/>
             <result property="enddate" column="endDate" jdbcType="DATE"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="deposittime" column="depositTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         depositId,petId,startDate,
-        endDate,status
+        endDate,status,price,
+        depositTime
     </sql>
 </mapper>

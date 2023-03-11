@@ -1,9 +1,10 @@
 package com.example.pethis.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.pethis.entity.Employee;
 import com.example.pethis.entity.EmployeeVO;
+import com.example.pethis.entity.EmplpoyeeDutyVO;
 import com.example.pethis.service.EmployeeService;
+import com.example.pethis.utils.DateUtil;
 import com.example.pethis.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,9 @@ public class EmployeeController {
     @GetMapping("/getEmployeeList")
     public Result getEmployeeList(Integer pageNum, Integer pageSize) {
         System.out.println("getEmployeeList");
-        Page<Employee> employeePage = employeeService.getEmployeeList(pageNum, pageSize);
+        List<EmplpoyeeDutyVO> employeePage = employeeService.getEmployeeList(pageNum, pageSize);
 
-        return Result.ok("查找员工信息成功", employeePage.getRecords(), employeePage.getTotal());
+        return Result.ok("查找员工信息成功", employeePage, employeePage.size());
     }
 
     @GetMapping("/getEmployeeInfoById")
@@ -48,14 +49,15 @@ public class EmployeeController {
 
 
     }
-    @GetMapping("/getEmployeeListByRoleId")
-    public  Result getEmployeeListByRoleId(int pageNum,int pageSize,int roleId){
-        System.out.println("getEmployeeListByRoleId");
-        List<Object> objectList=employeeService.getEmployeeListByRoleId(pageNum,pageSize,roleId);
-        List<EmployeeVO> list =(List<EmployeeVO>) objectList.get(0);
-        int total =(Integer)((List<Object>)objectList.get(1)).get(0);
 
-        return Result.ok("获取项目员工信息成功",list, total);
+    @GetMapping("/getEmployeeListByRoleId")
+    public Result getEmployeeListByRoleId(int pageNum, int pageSize, int roleId) {
+        System.out.println("getEmployeeListByRoleId");
+        List<Object> objectList = employeeService.getEmployeeListByRoleId(pageNum, pageSize, roleId);
+        List<EmployeeVO> list = (List<EmployeeVO>) objectList.get(0);
+        int total = (Integer) ((List<Object>) objectList.get(1)).get(0);
+
+        return Result.ok("获取项目员工信息成功", list, total);
     }
 
     @DeleteMapping("deleteEmployee")
@@ -98,4 +100,17 @@ public class EmployeeController {
         }
 
     }
+
+    @GetMapping("/getEmployeeByTomorrow")
+    public Result getEmployeeByTomorrow(int pageNum, int pageSize,int roleId) {
+        System.out.println("getEmployeeByTomorrow");
+        String tomWeekday = DateUtil.getWitchWeekdayOfTomorrow();
+       // roleId=4;
+        List<Object> obj = employeeService.getEmployeeByDutyAndRole( tomWeekday,roleId,pageNum, pageSize);
+        List<EmplpoyeeDutyVO> list = (List<EmplpoyeeDutyVO>) obj.get(0);
+        int total = (Integer) ((List<Object>) obj.get(1)).get(0);
+        return Result.ok("获取明天值班员工列表成功", list, total);
+    }
+
+
 }

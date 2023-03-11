@@ -4,15 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.pethis.mapper.ItemMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Item">
-            <id property="itemid" column="itemId" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="price" column="price" jdbcType="DECIMAL"/>
-            <result property="chargingmethod" column="chargingMethod" jdbcType="VARCHAR"/>
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.ItemVO">
+        <id property="itemid" column="itemId" jdbcType="INTEGER"/>
+        <result property="roleid" column="roleId" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="chargingmethod" column="chargingMethod" jdbcType="VARCHAR"/>
+        <association property="role">
+            <result property="name" column="rolename" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <resultMap id="itemListCount" type="java.lang.Integer">
+        <result column="total"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        itemId,name,price,
+        itemId
+        ,name,price,
         chargingMethod
     </sql>
+<!--     limit和#{currentPage}贴太近了也会有bug-->
+    <select id="getitemList" resultMap="BaseResultMap,itemListCount">
+        select SQL_CALC_FOUND_ROWS item.*,role.name as rolename, role.description
+        from item
+                 left join role on item.roleId = role.roleId ORDER BY itemId limit #{currentPage},#{pageSize};
+        SELECT FOUND_ROWS() AS total;
+
+
+    </select>
+
 </mapper>

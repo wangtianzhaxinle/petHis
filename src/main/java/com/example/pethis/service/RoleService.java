@@ -23,4 +23,6 @@ public interface RoleService extends IService<Role> {
 
     public Page<Role> getRoleList(int pageNum, int pageSize);
 
+
+
 }

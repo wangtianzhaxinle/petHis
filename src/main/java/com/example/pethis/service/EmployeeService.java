@@ -1,8 +1,8 @@
 package com.example.pethis.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.pethis.entity.Employee;
+import com.example.pethis.entity.EmplpoyeeDutyVO;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 */
 public interface EmployeeService extends IService<Employee> {
 
-    Page<Employee> getEmployeeList(Integer pageNum, Integer pageSize);
+    List<EmplpoyeeDutyVO> getEmployeeList(Integer pageNum, Integer pageSize);
 
     Employee getEmployeeInfoById(Integer user_id);
 
@@ -24,4 +24,6 @@ List<Object> getEmployeeListByRoleId(int pageNum,int pageSize,int roleId);
     int deleteEmployeeById(Integer id);
 
     int updateEmployeeById(Employee employee);
+
+List<Object>getEmployeeByDutyAndRole(String weekday,int roleId, int pageNum, int pageSize);
 }

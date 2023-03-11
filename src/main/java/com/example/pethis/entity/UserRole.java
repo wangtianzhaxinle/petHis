@@ -4,17 +4,16 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
- * @TableName employee_role
+ * @TableName user_role
  */
-@TableName(value ="employee_role")
+@TableName(value ="user_role")
 @Data
-public class EmployeeRole implements Serializable {
+public class UserRole implements Serializable {
     /**
      * 
      */
@@ -30,8 +29,8 @@ public class EmployeeRole implements Serializable {
     /**
      * 
      */
-    @TableField(value = "employeeId")
-    private Integer employeeid;
+    @TableField(value = "userId")
+    private Integer userid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -47,10 +46,10 @@ public class EmployeeRole implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        EmployeeRole other = (EmployeeRole) that;
+        UserRole other = (UserRole) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getRoleid() == null ? other.getRoleid() == null : this.getRoleid().equals(other.getRoleid()))
-            && (this.getEmployeeid() == null ? other.getEmployeeid() == null : this.getEmployeeid().equals(other.getEmployeeid()));
+            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()));
     }
 
     @Override
@@ -59,7 +58,7 @@ public class EmployeeRole implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getRoleid() == null) ? 0 : getRoleid().hashCode());
-        result = prime * result + ((getEmployeeid() == null) ? 0 : getEmployeeid().hashCode());
+        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
         return result;
     }
 
@@ -71,7 +70,7 @@ public class EmployeeRole implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", roleid=").append(roleid);
-        sb.append(", employeeid=").append(employeeid);
+        sb.append(", userid=").append(userid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

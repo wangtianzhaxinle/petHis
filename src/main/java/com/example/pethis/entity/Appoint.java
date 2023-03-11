@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 
@@ -32,8 +30,8 @@ public class Appoint implements Serializable {
     /**
      * 
      */
-    @TableField(value = "userId")
-    private Integer userid;
+    @TableField(value = "petId")
+    private Integer petid;
 
     /**
      * 预约状态
@@ -42,32 +40,22 @@ public class Appoint implements Serializable {
     private Integer status;
 
     /**
-     * 预约时间
+     * 预约日期
      */
-    @TableField(value = "appointTime")
-    private Date appointtime;
+    @TableField(value = "appointDate")
+    private Date appointdate;
 
+    /**
+     * 记录生成的时间
+     */
     @TableField(value = "createtime")
     private Date createtime;
 
     /**
-     * 预约医生
+     * 
      */
-    @TableField(value = "employeeId")
-    private Integer employeeid;
-
-    /**
-     * 数量
-     */
-    @TableField(value = "count")
-    private Integer count;
-
-    /**
-     * 总价
-     */
-    @TableField(value = "totalPrice")
-    private BigDecimal totalprice;
-
+    @TableField(value = "businessKey")
+    private String businesskey;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -86,12 +74,11 @@ public class Appoint implements Serializable {
         Appoint other = (Appoint) that;
         return (this.getAppointid() == null ? other.getAppointid() == null : this.getAppointid().equals(other.getAppointid()))
             && (this.getItemid() == null ? other.getItemid() == null : this.getItemid().equals(other.getItemid()))
-            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
+            && (this.getPetid() == null ? other.getPetid() == null : this.getPetid().equals(other.getPetid()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getAppointtime() == null ? other.getAppointtime() == null : this.getAppointtime().equals(other.getAppointtime()))
-            && (this.getEmployeeid() == null ? other.getEmployeeid() == null : this.getEmployeeid().equals(other.getEmployeeid()))
-            && (this.getCount() == null ? other.getCount() == null : this.getCount().equals(other.getCount()))
-            && (this.getTotalprice() == null ? other.getTotalprice() == null : this.getTotalprice().equals(other.getTotalprice()));
+            && (this.getAppointdate() == null ? other.getAppointdate() == null : this.getAppointdate().equals(other.getAppointdate()))
+            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()))
+            && (this.getBusinesskey() == null ? other.getBusinesskey() == null : this.getBusinesskey().equals(other.getBusinesskey()));
     }
 
     @Override
@@ -100,12 +87,11 @@ public class Appoint implements Serializable {
         int result = 1;
         result = prime * result + ((getAppointid() == null) ? 0 : getAppointid().hashCode());
         result = prime * result + ((getItemid() == null) ? 0 : getItemid().hashCode());
-        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
+        result = prime * result + ((getPetid() == null) ? 0 : getPetid().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getAppointtime() == null) ? 0 : getAppointtime().hashCode());
-        result = prime * result + ((getEmployeeid() == null) ? 0 : getEmployeeid().hashCode());
-        result = prime * result + ((getCount() == null) ? 0 : getCount().hashCode());
-        result = prime * result + ((getTotalprice() == null) ? 0 : getTotalprice().hashCode());
+        result = prime * result + ((getAppointdate() == null) ? 0 : getAppointdate().hashCode());
+        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
+        result = prime * result + ((getBusinesskey() == null) ? 0 : getBusinesskey().hashCode());
         return result;
     }
 
@@ -117,12 +103,11 @@ public class Appoint implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", appointid=").append(appointid);
         sb.append(", itemid=").append(itemid);
-        sb.append(", userid=").append(userid);
+        sb.append(", petid=").append(petid);
         sb.append(", status=").append(status);
-        sb.append(", appointtime=").append(appointtime);
-        sb.append(", employeeid=").append(employeeid);
-        sb.append(", count=").append(count);
-        sb.append(", totalprice=").append(totalprice);
+        sb.append(", appointdate=").append(appointdate);
+        sb.append(", createtime=").append(createtime);
+        sb.append(", businesskey=").append(businesskey);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

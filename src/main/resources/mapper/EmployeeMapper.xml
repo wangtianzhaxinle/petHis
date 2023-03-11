@@ -14,6 +14,7 @@
         <result property="nativeplace" column="nativePlace" jdbcType="VARCHAR"/>
         <result property="educationbackground" column="educationBackground" jdbcType="VARCHAR"/>
         <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="userid" column="userId" jdbcType="VARCHAR"/>
         <association property="user">
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="age" column="age" jdbcType="INTEGER"/>
@@ -35,16 +36,37 @@
     </sql>
 
     <select id="getEmployeeListByRoleId" resultMap="BaseResultMap,EmployeeCount">
-
         select SQL_CALC_FOUND_ROWS *
-        from employee left
-                          join user
-                               on user.userId=employee.employeeId
+        from employee
+                 left join user
+                           on user.userId = employee.userId
         where employee.employeeId
             in
-            (select employee_role.employeeId from employee_role where employee_role.roleId = #{roleId})
+              (select user_role.userId from user_role where user_role.roleId = #{roleId})
             LIMIT #{currentPage}
             , #{pageSize};
         SELECT FOUND_ROWS() AS total;
+    </select>
+    <select id="getEmployeeByDutyAndRole" resultMap="BaseResultMap,EmployeeCount">
+        select SQL_CALC_FOUND_ROWS *
+        from employee
+                 left join user
+                           on employee.userId = user.userId
+        where employeeId in
+              (select employeeId
+               from duty
+               where ${weekday} = 1)
+          and employee.userId in (select userId from user_role where roleId = #{roleId})
+limit #{currentPage},#{pageSize};
+        SELECT FOUND_ROWS() AS total;
+
+    </select>
+    <select id="selectAllEmployeeList" resultMap="BaseResultMap">
+        select *
+        from employee
+                 left join user on user.userId = employee.userId
+            limit #{currentPage}
+           , #{pageSize}
+
     </select>
 </mapper>

@@ -4,32 +4,33 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 
- * @TableName role
+ * @TableName room
  */
-@TableName(value ="role")
+@TableName(value ="room")
 @Data
-public class Role implements Serializable {
+public class Room implements Serializable {
     /**
      * 
      */
-    @TableId(value = "roleId", type = IdType.AUTO)
-    private Integer roleid;
-
+    @TableId(value = "roomId", type = IdType.AUTO)
+    private Integer roomid;
 
     /**
      * 
      */
-    @TableField(value = "name")
-    private String name;
+    @TableField(value = "status")
+    private Integer status;
 
-    @TableField(value = "description")
-    private String description;
+    /**
+     * 
+     */
+    @TableField(value = "petId")
+    private Integer petid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -45,17 +46,19 @@ public class Role implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Role other = (Role) that;
-        return (this.getRoleid() == null ? other.getRoleid() == null : this.getRoleid().equals(other.getRoleid()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
+        Room other = (Room) that;
+        return (this.getRoomid() == null ? other.getRoomid() == null : this.getRoomid().equals(other.getRoomid()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getPetid() == null ? other.getPetid() == null : this.getPetid().equals(other.getPetid()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getRoleid() == null) ? 0 : getRoleid().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getRoomid() == null) ? 0 : getRoomid().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getPetid() == null) ? 0 : getPetid().hashCode());
         return result;
     }
 
@@ -65,8 +68,9 @@ public class Role implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", roleid=").append(roleid);
-        sb.append(", name=").append(name);
+        sb.append(", roomid=").append(roomid);
+        sb.append(", status=").append(status);
+        sb.append(", petid=").append(petid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

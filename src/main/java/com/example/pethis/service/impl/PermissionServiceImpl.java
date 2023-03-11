@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.pethis.entity.Permission;
+import com.example.pethis.entity.PermissionTree;
 import com.example.pethis.mapper.PermissionMapper;
 import com.example.pethis.service.PermissionService;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     implements PermissionService{
 @Resource
 PermissionMapper permissionMapper;
-    @Override
-    public List<Permission> getPermissionByRoleId(int roleId) {
-        return null;
-    }
+
 
     @Override
     public int addPermissiob(Permission permission) {
@@ -46,6 +44,11 @@ PermissionMapper permissionMapper;
         QueryWrapper wrapper = new QueryWrapper();
         Page<Permission>page=new Page<>(pageNum,pageSize);
         return permissionMapper.selectPage(page,wrapper);
+    }
+
+    @Override
+    public List<PermissionTree> getPermissionTree() {
+        return permissionMapper.getPermissionTree();
     }
 }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pethis.mapper.CheckMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.pethis.entity.Check">
+            <id property="checkid" column="checkId" jdbcType="INTEGER"/>
+            <result property="employeeid" column="EmployeeId" jdbcType="INTEGER"/>
+            <result property="medicalrecordid" column="medicalRecordId" jdbcType="INTEGER"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="checktime" column="checktime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        checkId,EmployeeId,medicalRecordId,
+        price,checktime
+    </sql>
+</mapper>

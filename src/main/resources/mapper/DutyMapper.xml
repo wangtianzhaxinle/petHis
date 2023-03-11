@@ -7,20 +7,20 @@
     <resultMap id="BaseResultMap" type="com.example.pethis.entity.DutyVO">
         <id property="dutyid" column="dutyId" jdbcType="INTEGER"/>
         <result property="employeeid" column="employeeId" jdbcType="INTEGER"/>
-        <result property="mondayam" column="MondayAM" jdbcType="INTEGER"/>
-        <result property="mondaypm" column="MondayPM" jdbcType="INTEGER"/>
-        <result property="tuesdayam" column="TuesdayAM" jdbcType="INTEGER"/>
-        <result property="tuesdaypm" column="TuesdayPM" jdbcType="INTEGER"/>
-        <result property="wednesdayam" column="WednesdayAM" jdbcType="INTEGER"/>
-        <result property="wednesdaypm" column="WednesdayPM" jdbcType="INTEGER"/>
-        <result property="thursdayam" column="ThursdayAM" jdbcType="INTEGER"/>
-        <result property="thursdaypm" column="ThursdayPM" jdbcType="INTEGER"/>
-        <result property="fridayam" column="FridayAM" jdbcType="INTEGER"/>
-        <result property="fridaypm" column="FridayPM" jdbcType="INTEGER"/>
-        <result property="saturdayam" column="SaturdayAM" jdbcType="INTEGER"/>
-        <result property="saturdaypm" column="SaturdayPM" jdbcType="INTEGER"/>
-        <result property="sundayam" column="SundayAM" jdbcType="INTEGER"/>
-        <result property="sundaypm" column="SundayPM" jdbcType="INTEGER"/>
+        <result property="monday" column="Monday" jdbcType="INTEGER"/>
+
+        <result property="tuesday" column="Tuesday" jdbcType="INTEGER"/>
+
+        <result property="wednesday" column="Wednesday" jdbcType="INTEGER"/>
+
+        <result property="thursday" column="Thursday" jdbcType="INTEGER"/>
+
+        <result property="friday" column="Friday" jdbcType="INTEGER"/>
+
+        <result property="saturday" column="Saturday" jdbcType="INTEGER"/>
+
+        <result property="sunday" column="Sunday" jdbcType="INTEGER"/>
+
 
         <association property="user">
             <result property="name" column="name" jdbcType="VARCHAR"/>

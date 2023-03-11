@@ -1,7 +1,8 @@
 package com.example.pethis.mapper;
 
-import com.example.pethis.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.pethis.entity.Employee;
+import com.example.pethis.entity.EmplpoyeeDutyVO;
 
 import java.util.List;
 
@@ -13,6 +14,10 @@ import java.util.List;
 */
 public interface EmployeeMapper extends BaseMapper<Employee> {
     List<Object> getEmployeeListByRoleId(int currentPage, int pageSize, int roleId);
+
+    List<Object> getEmployeeByDutyAndRole(int currentPage,int pageSize,int roleId,String weekday);
+
+    List<EmplpoyeeDutyVO> selectAllEmployeeList(Integer currentPage, Integer pageSize);
 }
 
 

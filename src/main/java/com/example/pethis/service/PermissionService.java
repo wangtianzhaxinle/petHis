@@ -3,6 +3,7 @@ package com.example.pethis.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.pethis.entity.Permission;
+import com.example.pethis.entity.PermissionTree;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 */
 public interface PermissionService extends IService<Permission> {
 
-    public List<Permission> getPermissionByRoleId(int roleId);
+
 
     public int addPermissiob(Permission permission);
 
@@ -22,5 +23,7 @@ public interface PermissionService extends IService<Permission> {
     public int updatePermssionById(Permission permission);
 
     public Page<Permission> getPermissionList(int pageNum, int pageSize);
+
+    public List<PermissionTree> getPermissionTree();
 
 }

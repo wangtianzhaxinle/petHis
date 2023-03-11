@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
@@ -45,6 +46,18 @@ public class Deposit implements Serializable {
     @TableField(value = "status")
     private Integer status;
 
+    /**
+     * 
+     */
+    @TableField(value = "price")
+    private BigDecimal price;
+
+    /**
+     * 
+     */
+    @TableField(value = "depositTime")
+    private Date deposittime;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +77,9 @@ public class Deposit implements Serializable {
             && (this.getPetid() == null ? other.getPetid() == null : this.getPetid().equals(other.getPetid()))
             && (this.getStartdate() == null ? other.getStartdate() == null : this.getStartdate().equals(other.getStartdate()))
             && (this.getEnddate() == null ? other.getEnddate() == null : this.getEnddate().equals(other.getEnddate()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
+            && (this.getDeposittime() == null ? other.getDeposittime() == null : this.getDeposittime().equals(other.getDeposittime()));
     }
 
     @Override
@@ -76,6 +91,8 @@ public class Deposit implements Serializable {
         result = prime * result + ((getStartdate() == null) ? 0 : getStartdate().hashCode());
         result = prime * result + ((getEnddate() == null) ? 0 : getEnddate().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
+        result = prime * result + ((getDeposittime() == null) ? 0 : getDeposittime().hashCode());
         return result;
     }
 
@@ -90,6 +107,8 @@ public class Deposit implements Serializable {
         sb.append(", startdate=").append(startdate);
         sb.append(", enddate=").append(enddate);
         sb.append(", status=").append(status);
+        sb.append(", price=").append(price);
+        sb.append(", deposittime=").append(deposittime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

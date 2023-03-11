@@ -1,7 +1,10 @@
 package com.example.pethis.mapper;
 
-import com.example.pethis.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.pethis.entity.Permission;
+import com.example.pethis.entity.PermissionTree;
+
+import java.util.List;
 
 /**
 * @author 梁炜轩
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface PermissionMapper extends BaseMapper<Permission> {
 
+    List<PermissionTree> getPermissionTree();
 }
 
 

@@ -28,6 +28,10 @@ public class Employee implements Serializable {
     @TableField(value = "hiredate")
     private Date hiredate;
 
+
+    @TableField(value = "userId")
+    private int userid;
+
     /**
      * 薪水
      */

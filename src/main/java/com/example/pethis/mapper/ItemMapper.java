@@ -1,7 +1,9 @@
 package com.example.pethis.mapper;
 
-import com.example.pethis.entity.Item;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.pethis.entity.Item;
+
+import java.util.List;
 
 /**
 * @author 梁炜轩
@@ -10,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.pethis.entity.Item
 */
 public interface ItemMapper extends BaseMapper<Item> {
+    List<Object > getitemList(int currentPage,int pageSize);
 
 }
 
